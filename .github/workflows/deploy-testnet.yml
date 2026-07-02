@@ -1,0 +1,44 @@
+name: Deploy to Celo Alfajores Testnet
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:  # Allow manual trigger from GitHub UI
+
+jobs:
+  deploy:
+    name: Deploy to Alfajores
+    runs-on: ubuntu-latest
+    environment: testnet
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile contracts
+        run: npx hardhat compile
+
+      - name: Run tests before deploy
+        run: npx hardhat test
+
+      - name: Deploy to Celo Alfajores
+        env:
+          PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+          CELOSCAN_API_KEY: ${{ secrets.CELOSCAN_API_KEY }}
+        run: npx hardhat run scripts/deploy/01_deploy_all.js --network celo-alfajores
+
+      - name: Verify contracts on Celoscan
+        env:
+          PRIVATE_KEY: ${{ secrets.DEPLOYER_PRIVATE_KEY }}
+          CELOSCAN_API_KEY: ${{ secrets.CELOSCAN_API_KEY }}
+        run: npx hardhat run scripts/deploy/02_verify.js --network celo-alfajores
+        continue-on-error: true  # Verification can fail transiently; don't block deploy

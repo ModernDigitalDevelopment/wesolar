@@ -38,7 +38,7 @@ contract WeSolarDAO is
         GovernorSettings(
             1,      // 1 block voting delay
             50400,  // ~1 week voting period (at 12s/block)
-            0       // 0 WST proposal threshold
+            1_000 * 10 ** 18  // 1,000 WST proposal threshold (0.001% of max supply)
         )
         GovernorVotes(_token)
         GovernorVotesQuorumFraction(4) // 4% quorum

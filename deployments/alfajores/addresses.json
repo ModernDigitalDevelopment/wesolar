@@ -1,0 +1,38 @@
+{
+  "network": "celo-alfajores",
+  "chainId": 44787,
+  "deployedAt": null,
+  "contracts": {
+    "WeSolarToken": {
+      "address": null,
+      "txHash": null,
+      "blockNumber": null,
+      "verified": false
+    },
+    "SolarPanelRegistry": {
+      "address": null,
+      "txHash": null,
+      "blockNumber": null,
+      "verified": false
+    },
+    "WeSolarFinancing": {
+      "address": null,
+      "txHash": null,
+      "blockNumber": null,
+      "verified": false
+    },
+    "WeSolarDAO": {
+      "address": null,
+      "txHash": null,
+      "blockNumber": null,
+      "verified": false
+    },
+    "TimelockController": {
+      "address": null,
+      "txHash": null,
+      "blockNumber": null,
+      "verified": false
+    }
+  },
+  "notes": "Deploy with: npx hardhat run scripts/deploy/01_deploy_all.js --network celo-alfajores"
+}

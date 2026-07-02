@@ -19,6 +19,20 @@ module.exports = {
     hardhat: {
       chainId: 31337,
     },
+    // Celo Alfajores Testnet — free test tokens at https://faucet.celo.org/alfajores
+    "celo-alfajores": {
+      url: "https://alfajores-forno.celo-testnet.org",
+      chainId: 44787,
+      accounts: [PRIVATE_KEY],
+      gasPrice: 1000000000,
+    },
+    // Celo Mainnet
+    celo: {
+      url: "https://forno.celo.org",
+      chainId: 42220,
+      accounts: [PRIVATE_KEY],
+      gasPrice: 1000000000,
+    },
     baseSepolia: {
       url: "https://sepolia.base.org",
       chainId: 84532,
@@ -36,8 +50,26 @@ module.exports = {
     apiKey: {
       baseSepolia: process.env.BASESCAN_API_KEY || "",
       base: process.env.BASESCAN_API_KEY || "",
+      celo: process.env.CELOSCAN_API_KEY || "",
+      "celo-alfajores": process.env.CELOSCAN_API_KEY || "",
     },
     customChains: [
+      {
+        network: "celo",
+        chainId: 42220,
+        urls: {
+          apiURL: "https://api.celoscan.io/api",
+          browserURL: "https://celoscan.io",
+        },
+      },
+      {
+        network: "celo-alfajores",
+        chainId: 44787,
+        urls: {
+          apiURL: "https://api-alfajores.celoscan.io/api",
+          browserURL: "https://alfajores.celoscan.io",
+        },
+      },
       {
         network: "baseSepolia",
         chainId: 84532,
